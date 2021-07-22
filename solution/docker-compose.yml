@@ -1,0 +1,29 @@
+version: '3.2'
+
+services:
+  # Local PostgreSQL instance for all three DBs, to be used in dev mode
+  travelapp-pgserver:
+    container_name: travelapp-pgserver-ctnr
+    image: travelapp-pgserver-img
+    build:
+      context: ./database
+      dockerfile: ./docker/Dockerfile
+      args:
+        - TZ=America/Sao_Paulo
+    env_file:
+      - ./database/docker/.pgsql.env
+    volumes:
+      - type: volume
+        source: travelapp_pgserver_data
+        target: /var/lib/postgresql/pgdata
+    ports:
+      - target: 5432
+        published: 5432
+    networks:
+      - travelapp-network
+
+networks:
+    travelapp-network:
+
+volumes:
+    travelapp_pgserver_data:
