@@ -1,0 +1,5 @@
+# REST API related
+djangorestframework==3.12.4
+
+# API documentation related
+drf-yasg==1.20.0
